@@ -30,7 +30,7 @@ export function CoffeeList(){
                             </CoffeeListCardBody>
                             <CoffeeListCardFooter>
                                 <span>R$<strong> {info.price}</strong></span>
-                                <BoxCounter className="p-2">
+                                <BoxCounter className="p-2 w-100">
                                 <button><Minus size={20} weight="fill" /></button>
                                 <span className="ms-2 me-2">1</span>
                                 <button><Plus size={20} weight="fill" /></button>

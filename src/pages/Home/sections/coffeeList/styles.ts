@@ -8,6 +8,10 @@ export const CoffeeListCard = styled.div`
   border-top-left-radius: 8px;
   border-bottom-right-radius: 8px;
   width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 
   img{
     margin-top: -40px;
@@ -23,6 +27,9 @@ export const CoffeeTag = styled.span`
   border-radius: 15px;
   text-align: center;
   font-size: 0.75rem;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 export const CoffeeListCardBody = styled.div`
