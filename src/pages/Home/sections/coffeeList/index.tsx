@@ -30,14 +30,14 @@ export function CoffeeList(){
                             </CoffeeListCardBody>
                             <CoffeeListCardFooter>
                                 <span>R$<strong> {info.price}</strong></span>
-                                <BoxCounter className="p-2 w-100">
+                                <BoxCounter className="p-2">
                                 <button><Minus size={20} weight="fill" /></button>
                                 <span className="ms-2 me-2">1</span>
                                 <button><Plus size={20} weight="fill" /></button>
                                 </BoxCounter>
-                                <ButtonIcon className="p-2 text-white">
+                                {/* <ButtonIcon className="p-2 text-white">
                                 <ShoppingCart size={20} weight="fill" />
-                                </ButtonIcon>
+                                </ButtonIcon> */}
                             </CoffeeListCardFooter>
                         </CoffeeListCard>
                         </Col>

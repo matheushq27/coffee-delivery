@@ -28,7 +28,7 @@ export const FormInput = styled.input`
 
 export const CreditCardButton = styled.button`
   background-color: ${(props) => props.theme['gray-400']};
-  border: none;
+  border: 1px solid ${(props) => props.theme['purple-main']};
   border-radius: 5px;
   color: ${(props) => props.theme['purple-main']};
   display: flex;
@@ -83,4 +83,19 @@ export const RemoveCoffeeBurron = styled.button`
 
 export const DivisionOfSelectedCoffeeItems = styled.hr`
   color: ${(props) => props.theme['gray-500']};
+`
+export const BoxValuesSelectedCoffees = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const ConfirmOrderButton = styled.button`
+  background-color: ${(props) => props.theme['yellow-primary']};
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  &:hover {
+    background-color: ${(props) => props.theme['yellow-dark']};
+  }
 `
