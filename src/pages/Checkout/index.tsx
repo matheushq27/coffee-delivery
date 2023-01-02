@@ -18,8 +18,26 @@ import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plus } from
 import { BoxCounter } from '../Home/sections/coffeeList/styles'
 
 import traditionalExpress from '../../assets/img/traditionalExpress.png'
+import { useOrders } from '../../contexts/useCoffeeOrders'
+import { useEffect } from 'react'
 
 export function Checkout(){
+
+  const { orderInformation} = useOrders()
+
+  function totalCoffes(){
+    let total = 0
+    orderInformation.map((objCoffee: any)=>{
+      total += (objCoffee.price * objCoffee.quantity)
+    })
+    return total
+  }
+
+  function totalOrder(){
+    let total = totalCoffes() + 3.5
+    return total
+  }
+
     return(
         <Container>
             <Row>
@@ -103,41 +121,47 @@ export function Checkout(){
 
                 <CardCheckout>
                   <Container>
-                    <Row>
-                    
-                      <Col sm={12} xxl={9} className="mb-3">
-                        <BoxSelectedCoffeeItems>
-                          <BoxSelectedCoffeeItemsImg>
-                            <img src={traditionalExpress} />
-                          </BoxSelectedCoffeeItemsImg>
-                          <BoxSelectedCoffeeItemsActions>
-                            <p className="mb-1">Expresso Tradicional</p>
-                            <div className="d-flex align-items-center">
+                    {
+                      orderInformation.map((objCoffee: any)=>{
+                          return(
+                            <Row key={objCoffee.name}>
+                              
+                              <Col sm={12} xxl={9} className="mb-3">
+                                <BoxSelectedCoffeeItems>
+                                  <BoxSelectedCoffeeItemsImg>
+                                    <img src={`src/assets/img/${objCoffee.thumbnail}`} />
+                                  </BoxSelectedCoffeeItemsImg>
+                                  <BoxSelectedCoffeeItemsActions>
+                                    <p className="mb-1">{objCoffee.name}</p>
+                                    <div className="d-flex align-items-center">
 
-                              <BoxCounter className="p-2 w-100">
-                                <button><Minus size={20} weight="fill" /></button>
-                                <span className="ms-2 me-2">1</span>
-                                <button><Plus size={20} weight="fill" /></button>
-                              </BoxCounter>
+                                      <BoxCounter className="p-2 w-100">
+                                        <button><Minus size={20} weight="fill" /></button>
+                                        <span className="ms-2 me-2">{objCoffee.quantity}</span>
+                                        <button><Plus size={20} weight="fill" /></button>
+                                      </BoxCounter>
 
-                              <RemoveCoffeeBurron className="p-3 ms-2">
-                                <CreditCard size={20} />
-                                <span>Remover</span>
-                              </RemoveCoffeeBurron>
+                                      <RemoveCoffeeBurron className="p-3 ms-2">
+                                        <CreditCard size={20} />
+                                        <span>Remover</span>
+                                      </RemoveCoffeeBurron>
 
-                            </div>
-                          </BoxSelectedCoffeeItemsActions>
-                        </BoxSelectedCoffeeItems>
-                      </Col>
-                      <Col sm={12} xxl={3} className="mb-3 text-center">
-                        <span className="fw-bold fs-5">R$ 9,90</span>
-                      </Col>
-                      <DivisionOfSelectedCoffeeItems className="mt-2 mb-3" />
-                    </Row>
+                                    </div>
+                                  </BoxSelectedCoffeeItemsActions>
+                                </BoxSelectedCoffeeItems>
+                              </Col>
+                              <Col sm={12} xxl={3} className="mb-3 text-center">
+                                <span className="fw-bold fs-5">{objCoffee.price}</span>
+                              </Col>
+                              <DivisionOfSelectedCoffeeItems className="mt-2 mb-3" />
+                            </Row>
+                          )
+                      })
+                    }
 
                     <BoxValuesSelectedCoffees className="mb-1">
                       <div>Total de itens</div>
-                      <div>R$ 29,70</div>
+                      <div>R$ {totalCoffes()}</div>
                     </BoxValuesSelectedCoffees>
 
                     <BoxValuesSelectedCoffees className="mb-3">
@@ -147,7 +171,7 @@ export function Checkout(){
 
                     <BoxValuesSelectedCoffees className="fw-bold fs-4 mb-4">
                       <div>Total</div>
-                      <div>R$ 33,20</div>
+                      <div>R$ {totalOrder()}</div>
                     </BoxValuesSelectedCoffees>
 
                   <ConfirmOrderButton className="p-2 w-100 text-white fs-5">

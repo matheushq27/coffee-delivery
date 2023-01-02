@@ -4,21 +4,28 @@ import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import { NavLink } from 'react-router-dom'
 import coffeeDeliveryLogo from '../../assets/img/coffee-delivery-logo.svg'
+import { useOrders } from '../../contexts/useCoffeeOrders'
 
 export function Header() {
+  const { totalOrderItems } = useOrders()
+
   return (
     <Navbar bg="white" expand="lg" className="mb-5">
       <Container>
-        <Navbar.Brand href="/"><img src={coffeeDeliveryLogo} /></Navbar.Brand>
+        <NavLink to="/">
+          <img src={coffeeDeliveryLogo} />
+        </NavLink>
         <ContainerActions>
           <Location>
             <MapPin size={24} weight="fill" />
             <LocationTitle>Cuiabá, MT</LocationTitle>
           </Location>
-          <NavLink to="/" title="Shopping Cart">
+          <NavLink to="/checkout" title="Shopping Cart">
             <BoxIcon>
               <ShoppingCart size={24} weight="fill" />
-              <CounterCart>3</CounterCart>
+              {totalOrderItems > 0 &&
+                <CounterCart>{totalOrderItems}</CounterCart>
+              }
             </BoxIcon>
           </NavLink>
         </ContainerActions>

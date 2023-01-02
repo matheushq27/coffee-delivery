@@ -4,13 +4,16 @@ import { defaultTheme } from './styles/themes/default'
 import { GlobalStyle } from './styles/global'
 import { ThemeProvider } from 'styled-components'
 import { Router } from './Router'
+import { OrdersProvider } from './contexts/useCoffeeOrders'
 
 
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
-        <Router />
+        <OrdersProvider>
+          <Router />
+        </OrdersProvider>
       </BrowserRouter>
       <GlobalStyle />
     </ThemeProvider>
