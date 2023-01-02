@@ -62,21 +62,21 @@ export function Checkout(){
                   </BoxDeliveryAddress>
 
                   <Row>
-                    <Col className="mb-3" sm={12} xxl={4}>
+                    <Col className="mb-3" sm={12} md={3} xxl={4}>
                       <CreditCardButton className="p-3">
                         <CreditCard size={20} />
                         <span>Cartão de Crédito</span>
                       </CreditCardButton>
                     </Col>
 
-                    <Col className="mb-3" sm={12} xxl={4}>
+                    <Col className="mb-3" sm={12} md={3} xxl={4}>
                       <CreditCardButton className="p-3">
                         <Bank size={20} />
                         <span>Cartão de Débito</span>
                       </CreditCardButton>
                     </Col>
 
-                    <Col className="mb-3" sm={12} xxl={4}>
+                    <Col className="mb-3" sm={12} md={3} xxl={4}>
                       <CreditCardButton className="p-3">
                         <Money size={20} />
                         <span>Dinheiro</span>
