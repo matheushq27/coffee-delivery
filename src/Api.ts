@@ -5,7 +5,7 @@ export type coffesType = {
     tags: string[]
     price: string
     thumbnail: string
-    quantity?: number
+    quantity: number
 }
 
 export const Coffes = [

@@ -24,11 +24,9 @@ export function OrdersProvider({ children }: ChildreanPropsType) {
   function addToOrder(order: coffesType){
     updateQuantity(order.id)
     setOrderInformation(state => {
-      //console.log(state)
       return [...state, order]}
     )
     setTotalOrderItems(state => state + 1)
-    // getOrders()
   }
 
   function removeToOrder(order: coffesType){
@@ -52,6 +50,7 @@ export function OrdersProvider({ children }: ChildreanPropsType) {
         setOrderInformation,
         addToOrder,
         totalOrderItems,
+        setTotalOrderItems,
         coffes
       }}
     >

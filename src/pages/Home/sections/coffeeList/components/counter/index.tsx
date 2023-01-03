@@ -36,12 +36,13 @@ export function ActionsFooter({ click, order, createOrderObject }: props){
                 }) 
             break
         }
-        
     }
 
     function addToCart(){
+      if(quantity > 0){
         createOrderObject(order)  
         setQuantity(0)
+      }
     }
     
     return(

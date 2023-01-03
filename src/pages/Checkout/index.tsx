@@ -17,17 +17,64 @@ import {
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plus } from 'phosphor-react'
 import { BoxCounter } from '../Home/sections/coffeeList/styles'
 
-import traditionalExpress from '../../assets/img/traditionalExpress.png'
 import { useOrders } from '../../contexts/useCoffeeOrders'
-import { useEffect } from 'react'
+import { useState } from 'react'
+import { coffesType } from '../../Api'
 
 export function Checkout(){
 
-  const { orderInformation} = useOrders()
+  const { orderInformation, setTotalOrderItems} = useOrders()
+  const [quantity, setQuantity] = useState<number>(0)
+  const [coffeItems, setCoffeItems] = useState<coffesType[]>(orderInformation)
+
+
+    function updateQuantity(operation: 'addition' | 'subtraction'){
+        let qtd = 0
+        switch(operation){
+            case 'addition':
+                setQuantity(state => {
+                    qtd = state + 1
+                    return qtd
+                })
+            break
+            case 'subtraction':
+                setQuantity(state => {
+                if(state <= 0){
+                    qtd =  0
+                }else{
+                    qtd = state - 1
+                }
+                 return qtd
+                }) 
+            break
+        }
+    }
+
+  function updateOrder(operation: 'addition' | 'subtraction', id: number){
+    updateQuantity(operation)
+    coffeItems.map((coffee) => {
+      if(coffee.id === id){
+        if(operation === 'addition'){
+          coffee.quantity += 1
+        }else{
+          coffee.quantity -= 1
+          if(coffee.quantity == 0){
+            removeCoffeeFromOrder(id)
+          }
+        }
+      }
+    })
+  }
+
+  function removeCoffeeFromOrder(id: number){
+    let newCoffees = coffeItems.filter(coffee => coffee.id !== id)
+    setTotalOrderItems(newCoffees.length)
+    setCoffeItems(newCoffees)
+  }
 
   function totalCoffes(){
     let total = 0
-    orderInformation.map((objCoffee: any)=>{
+    coffeItems.map((objCoffee: any)=>{
       total += (objCoffee.price * objCoffee.quantity)
     })
     return total
@@ -122,7 +169,7 @@ export function Checkout(){
                 <CardCheckout>
                   <Container>
                     {
-                      orderInformation.map((objCoffee: any)=>{
+                      coffeItems.map((objCoffee: any)=>{
                           return(
                             <Row key={objCoffee.name}>
                               
@@ -136,12 +183,14 @@ export function Checkout(){
                                     <div className="d-flex align-items-center">
 
                                       <BoxCounter className="p-2 w-100">
-                                        <button><Minus size={20} weight="fill" /></button>
-                                        <span className="ms-2 me-2">{objCoffee.quantity}</span>
-                                        <button><Plus size={20} weight="fill" /></button>
+                                        <button onClick={()=>updateOrder('subtraction', objCoffee.id)}><Minus size={20} weight="fill" /></button>
+                                        <span className="ms-2 me-2">
+                                          {objCoffee.quantity}
+                                        </span>
+                                        <button onClick={()=>updateOrder('addition', objCoffee.id)}><Plus size={20} weight="fill" /></button>
                                       </BoxCounter>
 
-                                      <RemoveCoffeeBurron className="p-3 ms-2">
+                                      <RemoveCoffeeBurron onClick={()=>removeCoffeeFromOrder(objCoffee.id)} className="p-3 ms-2">
                                         <CreditCard size={20} />
                                         <span>Remover</span>
                                       </RemoveCoffeeBurron>
